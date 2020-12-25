@@ -55,3 +55,5 @@ dkms.conf
 .vscode/
 *-compiled.exe
 *-compiled
+dyh_alloc.c
+dyh_alloc.h
