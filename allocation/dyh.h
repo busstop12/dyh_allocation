@@ -23,6 +23,7 @@ void *dyh_malloc(size_t size);
  */
 void dyh_free(void *p_block);
 
+/* Force the union to align. */
 typedef double Align;
 
 /* Head of the block */
@@ -110,6 +111,30 @@ void *dyh_malloc(size_t nbytes) {
             }
         }
     }
+}
+
+/**
+ * Free a block of memory allocated.
+ */
+void dyh_free(void *ap) {
+    Block *bp, *p;
+
+    /* Get the head block. */
+    bp = (Block *)ap - 1;
+
+    /* Find where is bp. */
+    for (p = &base; p->s.ptr != bp; p = p->s.ptr) {
+        if (p->s.ptr == &base) break;
+    }
+    if (bp != p->s.ptr) {
+        /* Not found. */
+        return;
+    }
+
+    /* Set the block to available. */
+    bp->s.size |= 1;
+
+    defrag(p);
 }
 
 /**

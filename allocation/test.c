@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "dyh.h"
 
@@ -26,5 +27,6 @@ int main(int argc, char const *argv[]) {
     for (int i = 0; i < n; i++) {
         printf("%d %.2lf\n", nd[i].x, nd[i].y);
     }
+
     return 0;
 }
